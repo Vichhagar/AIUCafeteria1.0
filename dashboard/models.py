@@ -25,8 +25,7 @@ class Food(models.Model):
 
     def save(self, *args, **kwargs):
         print("Hi")
-        
-
+  
         super(Food, self).save(*args, **kwargs)
 
 

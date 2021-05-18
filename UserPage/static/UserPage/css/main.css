@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;700&display=swap');
+
+/* Photo by <a href="https://unsplash.com/@brookelark?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Brooke Lark</a> on <a href="https://unsplash.com/s/photos/food?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+   */
+:root{
+	--text: white;
+	--other: black;
+}
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+  	text-decoration: none;	
+}
+html {
+	font-family: 'Vollkorn', serif;
+	scroll-behavior: smooth;
+}
+html::-webkit-scrollbar {
+	display: none;
+}
+body{
+  display: grid;
+  grid-gap: 1.62em; 
+  margin: 2% 10%;
+}
+body{
+  background:url("../img/bkg.jpg") no-repeat;
+  background-blend-mode: multiply;
+  background-position: center;
+  background-size:cover;
+}
+header{
+	color: var(--other);
+	text-align: center;
+	
+}
+
+header h1 {
+	font-size: 1.5rem;
+	line-height: 1.62;
+	text-transform:initial;
+}
+  
+::selection, a:hover, a:hover *, *:target {
+  background-color:var(--text);
+  color: var(--primary-background);
+  padding: 0px 7px;
+}
+::selection{
+  padding: 5px 7px;
+}
+#foodSection {
+  padding: 1.62em;
+  color: var(--text);
+ 
+}
+#foodSection .foodItem h2 {
+  font-size: 1rem;
+  line-height: 1.62;
+  text-transform: uppercase;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.612);
+  
+}
+#foodSection .foodItem h2 span {
+  font-size: 0.7rem;
+  line-height: 1.62;
+  text-transform:lowercase;
+  padding-left: 50%;
+}
+
+
+#foodSection{
+	display: grid;
+	grid-template-columns: repeat(auto-fit,minmax(150px, 1fr));
+	grid-gap: 1rem;
+	background-color: rgba(0, 0, 0, 0.353);
+	border-radius: 40px 40px;
+	box-shadow: 0 10px 8px -2px rgba(0, 0, 0, 0.775);
+  }
+#foodSection .foodItem ul {
+  list-style-type: none;
+}
+.foodItem{
+	background-color: rgba(0, 0, 0, 0.428);
+	border-radius: 0px 0px 15px 15px;
+}
+.foodPic img{
+	width: 100%;
+	height: 100%; 
+	margin: auto;
+	border-radius: 0px 0px 20px 20px;
+	box-shadow:  6px 5px 4px #161616a1;
+}
+.foodPic{
+	display: flex;
+	margin-bottom: 3%;	
+} 
+
+.votes {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: 1fr;
+	text-align: center;
+	
+	
+}
+.voteOption1 { grid-area: 1 / 1 / 2 / 2; border-radius: 20px 20px 30px 30px;}
+.voteOption2 { grid-area: 1 / 2 / 2 / 3; border-radius: 20px 20px 30px 30px;}
+ 
+.fa {
+	font-size: 1rem;
+	cursor: pointer;
+	user-select: none;
+	color: var(--text);
+	
+  } 
+
+  .votes a:hover{
+	  color: black;
+	  cursor: pointer;
+  }
+
