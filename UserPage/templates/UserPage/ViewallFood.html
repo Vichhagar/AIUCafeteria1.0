@@ -1,0 +1,80 @@
+{% extends "UserPage/base.html" %}
+{% load static %}
+{% block main %}
+<section id="foodSection">
+{% for OfferedFood in OfferedFood %}
+      <div class="foodItem">
+        <h2>{{OfferedFood.foodName}}</h2>
+        <div class="foodPic">
+           {% if OfferedFood.foodImage %}
+                <img src="{{ OfferedFood.foodImage.url }}" alt="">
+                {% else %}
+                <img src="{% static 'dashboard/img/food_profile.png' %}" alt="" >
+                {% endif %} 
+            
+        </div>
+        <div class="votes">
+        
+          <a class="voteOption1" type="button" id="upVote" value="{{OfferedFood.foodId}}">  <i class="fa fa-thumbs-up"></i></a>
+          <a class="voteOption2" type="button" id="downVote" value="{{OfferedFood.foodId}}"> <i class="fa fa-thumbs-down"></i></a>
+        
+        </div>   
+      </div>
+      {% endfor %}
+      
+
+    </section>
+   <button> <a class="nav" href="{% url 'Userpage:UserDashboard' %}"> View Todays Menu</a></button>
+   
+{% endblock main %}
+
+{% block js %}
+
+
+<script>
+  
+
+const sendData = (data, refresh) => {
+    $.ajax({
+     type: 'POST',
+      url: "{% url 'Userpage:vote' %}",
+      data: data,
+    success: function (response) {
+    },
+    error: function(response) {
+    },
+    complete: function() {
+     if (refresh) {
+      setTimeout(() => {location.reload()}, 1500);
+      }
+    }})}
+
+    
+    $(document).on('click', '[id^=upVote]', function() {
+      console.log($(this).attr('value'))
+      const data = {
+        'type': "upVote",
+        'foodId': $(this).attr('value'),
+        'csrfmiddlewaretoken': "{{ csrf_token}}"
+        };
+   
+    sendData(data, true);
+    })
+
+    $(document).on('click', '[id^=downVote]', function() {
+      const data = {
+        'type': "downVote",
+        'foodId': $(this).attr('value'),
+        'csrfmiddlewaretoken': "{{ csrf_token}}"
+        };
+   
+    sendData(data, true);
+    })
+  
+</script>
+
+
+{% endblock js %}
+
+
+   

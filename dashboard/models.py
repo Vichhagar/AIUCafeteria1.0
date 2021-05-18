@@ -6,8 +6,8 @@ class Food(models.Model):
     DAYS = (
         ('Sunday', 'Sunday'),
         ('Monday', 'Monday'),
-        ('Tursday', 'Tursday'),
-        ('Wenesday', 'Wenesday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
         ('Thursday', 'Thursday'),
         ('Friday', 'Friday'),
         ('Saturday', 'Saturday'),
@@ -22,7 +22,6 @@ class Food(models.Model):
 
     def __str__(self):
         return f"{self.foodName}"
-
 
 
 class Vote(models.Model):
