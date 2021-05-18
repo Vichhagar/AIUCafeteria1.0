@@ -122,3 +122,13 @@ header h1 {
 	  cursor: pointer;
   }
 
+  
+.nav a{
+	font-size: 15px; 
+	color:white;
+	width: 5%;
+}
+
+.nav:hover{
+	color: black
+}

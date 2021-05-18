@@ -5,6 +5,16 @@ from django.views.generic.list import ListView
 from dashboard.models import Food, Vote
 from django.http import Http404, JsonResponse
 from django.db.models import F
+from datetime import date
+import calendar
+
+class ViewallFood(generic.ListView):
+    model = Food
+    template_name = 'UserPage/ViewallFood.html'
+    context_object_name = 'OfferedFood'
+
+    def get_queryset(self):
+        return Food.objects.all()[:10]
 
 class UserDashboard(generic.ListView):
     model = Food
@@ -12,26 +22,12 @@ class UserDashboard(generic.ListView):
     context_object_name = 'OfferedFood'
 
     def get_queryset(self):
-        return Food.objects.all()[:10]
-
-class viewVotes(generic.ListView):
-    model = Vote
-    template_name = 'UserPage/UserDashboard.html'
-    context_object_name = 'foodVotes'
-
-    def get_queryset(self):
-        return Vote.objects.all()
+        my_date = date.today()
+        today = calendar.day_name[my_date.weekday()] 
+        print(today)
+        return Food.objects.all().filter(foodAvailableDay = today )
 
 
-        
-
-class ViewAllFood(generic.ListView):
-    model = Food
-    template_name = 'UserPage/allFood.html'
-    context_object_name = 'foods'
-
-    def get_queryset(self):
-        return Food.objects.all().order_by('-foodManufactureDate')
 
 def processVote( request):
     print("hello")

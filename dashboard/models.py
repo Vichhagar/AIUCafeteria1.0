@@ -5,8 +5,8 @@ class Food(models.Model):
     DAYS = (
         ('Sunday', 'Sunday'),
         ('Monday', 'Monday'),
-        ('Tursday', 'Tursday'),
-        ('Wenesday', 'Wenesday'),
+        ('Tuesday', 'Tuesday'),
+        ('Wednesday', 'Wednesday'),
         ('Thursday', 'Thursday'),
         ('Friday', 'Friday'),
         ('Saturday', 'Saturday'),
