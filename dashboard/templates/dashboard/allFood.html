@@ -1,0 +1,36 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block main %}
+
+<div class="container">
+
+    <div class="row">
+        {% for food in foods %}
+        <div class="col-sm-3">
+            <div class="card" style="width: 18rem;">
+
+                {% if food.foodImage %}
+                <img src="{{ food.foodImage.url }}" alt="">
+                {% else %}
+                <img src="{% static 'dashboard/img/food_profile.png' %}" alt="" style="width: 100%;">
+                {% endif %}
+              
+                <div class="card-body">
+                  <h5 class="card-title">{{ food.foodName }}</h5>
+                  <p class="card-text">{{ food.foodPrice }}</p>
+                  <a href="#" class="btn btn-primary">{{ food.foodPrice }}</a>
+                  <a href="#" class="btn btn-primary">{{ food.foodPrice }}</a>
+                  <a href="#" class="btn btn-primary">{{ food.foodPrice }}</a>
+                </div>
+              </div>
+        </div>
+        {% empty %}
+        <p>No Food added yet</p>
+        {% endfor %}
+      </div>
+  </div>
+
+
+
+{% endblock %}

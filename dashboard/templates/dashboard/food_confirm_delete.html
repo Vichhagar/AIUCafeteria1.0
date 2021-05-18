@@ -1,0 +1,14 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <form class="confirm-delete"method="post">
+        <h1 class="addNoteHeader">Delete Note</h1>
+        {% csrf_token %} 
+        <hr>
+        <button class="two" type="submit">Yes</button>
+        <a href="{% url 'dashboard:index' %}"><button  class="one" type="button">No</button><br></a>
+    </form> 
+
+{% endblock %}
