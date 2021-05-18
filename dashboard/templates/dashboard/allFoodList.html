@@ -1,0 +1,125 @@
+
+{% extends "dashboard/base.html" %}
+{% load static %}
+
+{% block main %}
+
+    <!-- <div class="container">
+        <div class="row">
+        <div class="card card-body">
+            <table class="table table-sm">
+                <thead>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Date Added</th>
+                </thead>
+                <tbody>
+                    {% csrf_token %}
+                    {% for food in foods %}
+                    <tr id="{{food.foodId}}">
+                        <td><input type="checkbox" name="food_id[]" value="{{food.foodId}}" id="delete_food"></td>
+                        <td>{{ food.foodName }}</td>
+                        <td>{{ food.foodPrice }}</td>
+                        <td>{{ food.foodAddDate }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+        </div>
+        <div>
+            <button type="submit" id="delete_btn" class="btn_delete">Delete</button>
+        </div>
+    </div> -->
+
+    <!-- TABLE -->
+    
+    <p>
+        <br>
+        <br>
+    </p>
+    <div class="container">
+        <h1>Select To Delete</h1>
+        <div class="row">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Up Vote</th>
+                <th scope="col">Date Added</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% csrf_token %}
+                {% for food in foods %}
+                <tr id="{{food.foodId}}">
+
+
+                    <td><input type="checkbox" name="food_id[]" value="{{food.foodId}}" id="delete_food" ></td>
+
+
+                    <!-- <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off"> -->
+                    
+
+
+                    <td>{{ food.foodName }}</td>
+                    <td>{{ food.foodPrice }}</td>
+                    <td> UpVote </td>
+                    <td>{{ food.foodAddDate }}</td>
+                </tr>
+                {% endfor %}
+                <tr><button type="submit" id="delete_btn" class="btn btn-sm btn-danger">Delete</button></tr>
+            </tbody>
+        </table>
+        <div>
+            
+        </div>
+    </div>
+</div>
+    <!-- END TABLE -->
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js" 
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" 
+    crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('#delete_btn').click(function() {
+                if(confirm("Are You Sure?")) {
+                    var id =[];
+                    var csrf='{{ csrf_token }}';
+                    $(':checkbox:checked').each(function(i){
+                        id[i] = $(this).val()
+                    })
+                    if(id.length===0) {
+                        alert("Please select")
+                    } else {
+                        console.log(id);
+                        console.log(csrf);
+                        $.ajax({
+                            url: ".",
+                            method: "POST",
+                            data: {
+                                id,
+                                csrfmiddlewaretoken:csrf
+                            },
+                            success:function(response) {
+                                for(var i=0; i < id.length; i++) {
+                                    $('tr#' + id[i] + '').css('background-color: #111');
+                                    $('tr#' + id[i] + '').fadeOut('fast');
+                                }
+                            }
+                        })
+                    }
+                }
+            })
+        })
+    </script>
+
+{% endblock %}
+    

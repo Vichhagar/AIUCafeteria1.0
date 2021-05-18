@@ -6,6 +6,4 @@ class addFood(forms.ModelForm):
         model = Food
         fields = ['foodImage', 
                     'foodName', 
-                    'foodManufactureDate',
-                    'foodExpirationDate',
                     'foodPrice']

@@ -1,129 +1,170 @@
 
 {% extends "dashboard/base.html" %}
+{% load static %}
 
 
 
 
 {% block main %}
-{%  include 'dashboard/status.html' %}
+{% if messages %}
+    {% for message in messages%}
+     {{ message }}
+    {% endfor %}
+{% endif %}
 <br>
+<div class="container">
 
 <div class="row">
-	<div class="col-md-5">
-		<hr>
-		<div class="card card-body">
-
-
-                <form action="{% url 'dashboard:addFood' %}" method="POST">
-                    <div class="row">
-                        {% csrf_token %}
-
-                        <div class="mb-3">
-                            <label for="foodImage" class="form-label">Image: </label>
-                            <tr></tr><input  type="file" name="foodImage" accept=".jpg, .png" class="form-control"></tr>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="foodName" class="form-label">foodName: </label>
-                            <tr><input type="text" name="foodName" class="form-control" id="food-name"></tr>
-                        </div>
-                        <div class="mb-3">
-                            <label for="foodManufactureDate" class="form-label">foodManufactureDate: </label>
-                            <tr><input type="datetime" name="foodManufactureDate" class="form-control"></tr>
-                        </div>
-                        <div class="mb-3">
-                            <label for="foodExpirationDate" class="form-label">foodExpirationDate: </label>
-                            <tr><input type="datetime" name="foodExpirationDate" class="form-control"></tr>
-                        </div>
-                        <div class="mb-3">
-                            <label for="foodPrice" class="form-label">foodPrice: </label>
-                            <tr><input id="food-price" type="number" name="foodPrice" class="form-control"></tr>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="foodAvailableDay" class="form-label">foodAvailableDay: </label>
-                        </div>
-                        <!-- Multiple Secletion -->
-                        <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
-                            <tr><input type="checkbox" name="foodAvailableDay"  value="Sunday">Sunday</tr>
-                            <tr><input type="checkbox" name="foodAvailableDay" value="Monday">Monday</tr>
-                            <tr><input type="checkbox" name="foodAvailableDay" value="Tursday">Tursday</tr>
-                            <tr><input type="checkbox" name="foodAvailableDay" value="Wenesday">Wenesday</tr>
-                            <tr><input type="checkbox" name="foodAvailableDay" value="Thursday">Thursday</tr>
-                            <tr><input type="checkbox" name="foodAvailableDay" value="Friday">Friday</tr>
-                            <tr><input type="checkbox" name="foodAvailableDay" value="Saturday">Saturday</tr>
-                        </div>
-
-                        <tr><button type="submit" class="btn btn-primary" id="create-food" disabled>Submit</button></tr>
-                        <p></p>
-
-        
-                    </div>
-                <form>
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="total-orders">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Total Menu</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title">{{ count }}</h3>
+			  	</div>
+			</div>
 		</div>
 	</div>
 
-	<div class="col-md-7">
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-delivered">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Add Menu</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title"><a  href="{% url 'dashboard:add_post' %}"><img src="{% static 'dashboard/img/add.png' %}" alt="" width="35px"></a></h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
 
-    <hr>
-    <div class="card card-body">
-        
-        <table class="table table-sm">
-            <tr>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Upvote</th>
-                <th></th>
-                <th></th>
-            </tr>
+	<div class="col">
+		<div class="col-md">
+			<div class="card text-center text-white  mb-3" id="orders-pending">
+			  	<div class="card-header">
+			  		<h5 class="card-title">Delete Menu</h5>
+			  	</div>
+			  	<div class="card-body">
+			    	<h3 class="card-title"><a  href="{% url 'dashboard:delete_multi' %}"><img src="{% static 'dashboard/img/delete.png' %}" alt="" width="35px"></a></h3>
+			  	</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<br>
 
-                {% for food in foods %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
 
+            <!-- CLOCK -->
 
+            <div id="clock">
+                <p>
+                    <br>
+                    <br>
+                    <br>
+                </p>
+
+                <div id="time">
+
+                    <div>
+                       <span id="hour">00</span><span>Hour</span>
+                    </div>
+
+                    <div>
+                       <span id="minutes">00</span><span>Minutes</span>
+                    </div>
+
+                    <div>
+                       <span id="seconds">00</span><span>Seconds</span>
+                    </div>
+
+                </div>
+                <p>
+                    <br>
+                </p>
+                <div id="openClose">
+                    CLOSE
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-7">
+
+        <hr>
+        <div class="card card-body">
+            
+            <table class="table table-sm">
                 <tr>
-                    <td>{{ food.foodName }}</td>
-                    <td>{{ food.foodPrice }}</td>
-                    <td>{{ food.food_related.upVote }}</td>
-                    <td><a class="btn btn-sm btn-info" href="{% url 'dashboard:editfood' food.foodId %}">Update</a></td>
-
-                    <td><a class="btn btn-sm btn-danger" href="{% url 'dashboard:delete' food.foodId %}">Delete</a></td>
-
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Upvote</th>
+                    <th></th>
+                    <th></th>
                 </tr>
 
-                {% empty %}
-                <p>No Food added yet</p>
-                {% endfor %}
-                <div></div>
-                
-                <tr>
-                    <td ><a href="{% url 'dashboard:viewallfood' %}" class="btn btn-primary">View All</a></td>
-                </tr>
-        </table>
-        
+                    {% for food in foods %}
+                    <tr>
+                        <td>{{ food.foodName }}</td>
+                        <td>{{ food.foodPrice }} THB</td>
+                        <td>{{ food.vote }}</td>
+                        <td><a class="btn btn-sm btn-info" href="{% url 'dashboard:editfood' food.foodId %}">Update</a></td>
+                        <td><a class="btn btn-sm btn-danger" href="{% url 'dashboard:delete' food.foodId %}">Delete</a></td>
+
+                    </tr>
+
+                    {% empty %}
+                    <p>No Food added yet</p>
+                    {% endfor %}
+                    <div></div>
+                    
+                    <tr>
+                        <td ><a href="{% url 'dashboard:viewallfood' %}" class="btn btn-primary">View All</a></td>
+                    </tr>
+            </table>
+            </div>
+        </div>
+    </div>
+
     </div>
 </div>
 
-</div>
-
 <script type="text/javascript">
-// food-name
-// create-food
 
-let buttonCLick = document.querySelector('#create-food');
-let inputP = document.querySelector('#food-price');
+function clock() {
+    var hours = document.getElementById('hour');
+    var minutes = document.getElementById('minutes');
+    var seconds = document.getElementById('seconds');
+    var checkOpen = document.getElementById('openClose');
 
+    var h = new Date().getHours();
+    var m = new Date().getMinutes();
+    var s = new Date().getSeconds();
 
+    h = (h < 10) ? "0" + h : h
+    m = (m < 10) ? "0" + m : m
+    s = (s < 10) ? "0" + s : s
 
-inputP.addEventListener('keyup', () =>{
+    hours.innerHTML = h;
+    minutes.innerHTML = m;
+    seconds.innerHTML = s;
 
-        if(inputP.value.length > 0) {
-            buttonCLick.disabled = false
-
-        } else {
-            buttonCLick.disabled = true;
-
+    if (s < 40) {
+        checkOpen.innerHTML = 'OPEN'
+        checkOpen.style.background = '#0fb900'
+    } else {
+        checkOpen.innerHTML = 'CLOSE'
+        checkOpen.style.background = '#ce0606e7'
     }
-})
+}
+
+var interval = setInterval(clock, 1000);
 </script>
 
 {% endblock %}

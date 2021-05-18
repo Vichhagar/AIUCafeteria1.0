@@ -3,12 +3,24 @@
 
 {% block main %}
 
+
+<p></p>
+
+
 <div class="container">
+  <form class="d-flex">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+
+  <p>
+    <br>
+  </p>
 
     <div class="row">
         {% for food in foods %}
         <div class="col-sm-3">
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 100%; margin-bottom: 20px;">
 
                 {% if food.foodImage %}
                 <img src="{{ food.foodImage.url }}" alt="">
@@ -18,10 +30,10 @@
               
                 <div class="card-body">
                   <h5 class="card-title">{{ food.foodName }}</h5>
-                  <p class="card-text">{{ food.foodPrice }}</p>
-                  <a href="#" class="btn btn-primary">{{ food.foodPrice }}</a>
-                  <a href="#" class="btn btn-primary">{{ food.foodPrice }}</a>
-                  <a href="#" class="btn btn-primary">{{ food.foodPrice }}</a>
+                  <p class="card-text">{{ food.foodPrice }} THB</p>
+                  <a class="btn btn-sm btn-info" href="{% url 'dashboard:editfood' food.foodId %}">Update</a>
+                  <a class="btn btn-sm btn-danger" href="{% url 'dashboard:delete' food.foodId %}">Delete</a>
+
                 </div>
               </div>
         </div>

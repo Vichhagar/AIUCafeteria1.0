@@ -3,77 +3,70 @@
 
 {% block main %}
 
-<br>
-<br>
-<br>
 
-<form class="container" method="post">
-    
-    {% csrf_token %}
+<form class="container" method="post" enctype="multipart/form-data">
+    <br>
+    <br>
+    <br>
 
-
+    <h1>Add Food To Menu</h1>
+    <p></p>
+  {% csrf_token %}
     <div class="row">
 
 
         <div class="mb-3">
-            {% if food.foodImage %}
-            <img src="{{ food.foodImage.url }}" alt="" style="width: 10%;">
-            {% else %}
-            <img src="{% static 'dashboard/img/food_profile.png' %}" alt="" style="width: 10%;">
-            {% endif %}
-            <p></p>
             <label for="foodImage" class="form-label">Image: <span class="badge bg-success">Important</span></label>
-            <tr></tr><input  type="file" name="foodImage" class="form-control" ></tr>
+            <tr></tr><input  type="file" name="foodImage" class="form-control"></tr>
         </div>
-    
+
         <div class="mb-3">
             <label for="foodName" class="form-label">Name: <span class="badge bg-success">Important</span></label>
-            <tr><input type="text" name="foodName" class="form-control" id="food-name" value="{{ food.foodName }}"></tr>
+            <tr><input type="text" name="foodName" class="form-control" id="food-name"></tr>
         </div>
-    
+
         <div class="mb-3">
             <label for="foodPrice" class="form-label">Price: <span class="badge bg-success">Important</span></label>
-            <tr><input id="food-price" type="number" name="foodPrice" class="form-control" value="{{ food.foodPrice }}"></tr>
+            <tr><input id="food-price" type="number" name="foodPrice" class="form-control"></tr>
         </div>
-    
+
         <div class="mb-2">
             <label for="foodAvailableDay" class="form-label">Available Day: <span class="badge bg-warning text-dark">Can pick more than one.</span></label>
         </div>
-    
+
         <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Sunday" id="Sunday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Sunday">Sunday</label>
-    
+
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Monday" id="Monday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Monday">Monday</label>
-    
+
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Tursday" id="Tursday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Tursday">Tursday</label>
-    
+
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Wenesday" id="Wenesday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Wenesday">Wenesday</label>
-    
+
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Thursday" id="Thursday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Thursday">Thursday</label>
-    
+
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Friday" id="Friday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Friday">Friday</label>
-    
+
             <input type="checkbox" class="btn-check" name="foodAvailableDay"  value="Saturday" id="Saturday" autocomplete="off">
             <label class="btn btn-outline-primary" for="Saturday">Saturday</label>
-    
-        </div>
 
+        </div>
         <p>
             <br>
-            <br>
         </p>
+        <tr><button type="submit" class="btn btn-primary" id="create-food" >Add The Food To The Menu</button></tr>
+        <p></p>
 
-    <tr></tr>
-    <tr><button class="btn btn-primary"  type="submit">Save</button><br></tr>
-    
+
+    </div>
+
 </form>
-{% endblock %}
 
-href="{% url 'dashboard:index' %}"
+{% endblock %}
 
