@@ -1,8 +1,9 @@
 {% extends "UserPage/base.html" %}
 {% load static %}
 {% block main %}
-<section id="foodSection">  
 
+<h1>Todays Menu</h1>
+<section id="foodSection">  
   {% for vote in votes %}
  
   <div class="foodItem">
@@ -19,7 +20,8 @@
         <a class="voteOption1" type="button" id="upVote" value="{{vote.foodId}}">  <i class="fa fa-thumbs-up">{{ vote.upVote }}</i></a>
       <a class="voteOption2" type="button" id="downVote" value="{{vote.foodId}}"> <i class="fa fa-thumbs-down">{{ vote.downVote }}</i></a>
     
-    </div>   
+    </div>  
+    <p>                                                 </p> 
   </div>
   {% endfor %}
 

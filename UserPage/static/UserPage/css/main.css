@@ -35,8 +35,12 @@ header{
 	text-align: center;
 	background-color: rgba(255, 255, 255, 0.571);
 	
+	
 }
-
+h1{
+	text-align: center;
+	color: rgb(7, 7, 7);
+}
 header h1 {
 	font-size: 1.5rem;
 	line-height: 1.62;
@@ -109,6 +113,7 @@ header h1 {
 }
 .voteOption1 { grid-area: 1 / 1 / 2 / 2; border-radius: 20px 20px 30px 30px;}
 .voteOption2 { grid-area: 1 / 2 / 2 / 3; border-radius: 20px 20px 30px 30px;}
+.price{ grid-area: 2 / 1 / 2 / 3; border-radius: 20px 20px 30px 30px;}
  
 .fa {
 	font-size: 1rem;
@@ -125,11 +130,13 @@ header h1 {
 
   
 .nav a{
-	font-size: 20px; 
 	color:white;
-	width: 5%;
+	
 }
-
+button{
+	font-size: 20px;
+	width: 20%; 
+}
 .nav:hover{
 	color: black
 }
