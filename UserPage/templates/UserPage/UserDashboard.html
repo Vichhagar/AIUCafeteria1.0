@@ -2,7 +2,7 @@
 {% load static %}
 {% block main %}
 
-<h1>Todays Menu</h1>
+<h1>Todays Menu </h1>
 <section id="foodSection">  
   {% for vote in votes %}
  
@@ -17,11 +17,11 @@
         
     </div>
     <div class="votes">
-        <a class="voteOption1" type="button" id="upVote" value="{{vote.foodId}}">  <i class="fa fa-thumbs-up">{{ vote.upVote }}</i></a>
-      <a class="voteOption2" type="button" id="downVote" value="{{vote.foodId}}"> <i class="fa fa-thumbs-down">{{ vote.downVote }}</i></a>
-    
+        <a class="voteOption1" type="button" id="upVote" value="{{vote.foodId}}">  <i class="fa fa-thumbs-up">{{ vote.upVote }}</i>0</a>
+      <a class="voteOption2" type="button" id="downVote" value="{{vote.foodId}}"> <i class="fa fa-thumbs-down">{{ vote.downVote }}</i>0</a>
+      <p class="price">{{vote.foodPrice}} baht</p> 
     </div>  
-    <p>                                                 </p> 
+  
   </div>
   {% endfor %}
 
