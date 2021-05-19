@@ -2,29 +2,28 @@
 {% load static %}
 {% block main %}
 <section id="foodSection">
-{% for OfferedFood in OfferedFood %}
-      <div class="foodItem">
-        <h2>{{OfferedFood.foodName}}</h2>
-        <div class="foodPic">
-           {% if OfferedFood.foodImage %}
-                <img src="{{ OfferedFood.foodImage.url }}" alt="">
-                {% else %}
-                <img src="{% static 'dashboard/img/food_profile.png' %}" alt="" >
-                {% endif %} 
-            
-        </div>
-        <div class="votes">
+  {% for vote in votes %}
+  <div class="foodItem">
+    <h2>{{vote.foodId.foodName}}</h2>
+    <div class="foodPic">
+       {% if vote.foodId.foodImage %}
+            <img src="{{ vote.foodId.foodImage.url }}" alt="">
+            {% else %}
+            <img src="{% static 'dashboard/img/food_profile.png' %}" alt="" >
+            {% endif %} 
         
-          <a class="voteOption1" type="button" id="upVote" value="{{OfferedFood.foodId}}">  <i class="fa fa-thumbs-up"></i></a>
-          <a class="voteOption2" type="button" id="downVote" value="{{OfferedFood.foodId}}"> <i class="fa fa-thumbs-down"></i></a>
-        
-        </div>   
-      </div>
-      {% endfor %}
+    </div>
+    <div class="votes">
+        <a class="voteOption1" type="button" id="upVote" value="{{vote.foodId}}">  <i class="fa fa-thumbs-up">{{ vote.upVote }}</i></a>
+      <a class="voteOption2" type="button" id="downVote" value="{{vote.foodId}}"> <i class="fa fa-thumbs-down">{{ vote.downVote }}</i></a>
+    
+    </div>   
+  </div>
+  {% endfor %}
       
 
     </section>
-   <button> <a class="nav" href="{% url 'Userpage:UserDashboard' %}"> View Todays Menu</a></button>
+   <button> <a class="nav" href="{% url 'Userpage:TodayMenu' %}"> View Todays Menu</a></button>
    
 {% endblock main %}
 

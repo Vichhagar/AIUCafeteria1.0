@@ -23,7 +23,7 @@ class Food(models.Model):
     foodAvailableDay = models.CharField(max_length=20, choices=DAYS, null=True, blank=True)
 
     def __str__(self):
-        return f"{self.foodName}"
+        return f"{self.foodId}"
 
 
 

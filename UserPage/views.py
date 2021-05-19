@@ -4,29 +4,39 @@ from django.views import generic
 from django.views.generic.list import ListView
 from dashboard.models import Food, Vote
 from django.http import Http404, JsonResponse
-from django.db.models import F
+from django.db.models import F,Q
 from datetime import date
 import calendar
+from itertools import chain
+from operator import attrgetter
 
 class ViewallFood(generic.ListView):
-    model = Food
+    model = Vote
     template_name = 'UserPage/ViewallFood.html'
-    context_object_name = 'OfferedFood'
+    context_object_name = 'votes'
 
     def get_queryset(self):
-        return Food.objects.all()[:10]
+        return Vote.objects.all()[:10]
+        
 
-class UserDashboard(generic.ListView):
-    model = Food
+class TodayMenu(generic.ListView):
+    model = Vote
     template_name = 'UserPage/UserDashboard.html'
-    context_object_name = 'OfferedFood'
+    context_object_name = 'votes'
 
     def get_queryset(self):
+      
+        # votes=  Vote.objects.all()
+
+        # allFoods = sorted(chain(foods, votes), key=attrgetter('foodId'))
+        # return allFoods
+
         my_date = date.today()
         today = calendar.day_name[my_date.weekday()] 
         print(today)
         return Food.objects.all().filter(foodAvailableDay = today )
-
+        
+        
 
 
 def processVote( request):
@@ -53,7 +63,7 @@ def processVote( request):
                     vote = Vote(foodId=food, upVote=0, downVote=1 )
                     vote.save()
 
-    return redirect('Userpage:UserDashboard')
+    return redirect('Userpage:TodayMenu')
 
 
                  

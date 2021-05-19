@@ -6,4 +6,5 @@ class addFood(forms.ModelForm):
         model = Food
         fields = ['foodImage', 
                     'foodName', 
-                    'foodPrice']
+                    'foodPrice',
+                    ]

@@ -33,6 +33,7 @@ body{
 header{
 	color: var(--other);
 	text-align: center;
+	background-color: rgba(255, 255, 255, 0.571);
 	
 }
 
@@ -73,7 +74,7 @@ header h1 {
 
 #foodSection{
 	display: grid;
-	grid-template-columns: repeat(auto-fit,minmax(150px, 1fr));
+	grid-template-columns: repeat(5,minmax(150px, 1fr));
 	grid-gap: 1rem;
 	background-color: rgba(0, 0, 0, 0.353);
 	border-radius: 40px 40px;
@@ -82,7 +83,7 @@ header h1 {
 #foodSection .foodItem ul {
   list-style-type: none;
 }
-.foodItem{
+.foodItem, .foodItem2{
 	background-color: rgba(0, 0, 0, 0.428);
 	border-radius: 0px 0px 15px 15px;
 }
@@ -124,7 +125,7 @@ header h1 {
 
   
 .nav a{
-	font-size: 15px; 
+	font-size: 20px; 
 	color:white;
 	width: 5%;
 }
@@ -132,3 +133,6 @@ header h1 {
 .nav:hover{
 	color: black
 }
+
+
+

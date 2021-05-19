@@ -91,6 +91,19 @@ class CreatePostView(generic.CreateView):
     template_name = 'dashboard/post.html'
     success_url = reverse_lazy('dashboard:viewallfood')
 
+    def form_valid(self,form):
+        self.instance =form.save(commit=False)
+ 
+        foodName = form.cleaned_data['foodName']
+        foodPrice = form.cleaned_data['foodPrice']
+        foodImage = form.cleaned_data['foodImage']
+        food= Food(foodImage=foodImage,foodName=foodName, foodPrice=foodPrice, foodAvailableDay='Wednesday' )
+        food.save()
+       
+        votes= Vote(foodId=food, upVote=0, downVote=0 )
+        votes.save()
+
+        return redirect('dashboard:viewallfood')
 
 
     # def post(self, request, *args, **kwargs):
