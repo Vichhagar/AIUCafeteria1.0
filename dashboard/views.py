@@ -7,6 +7,8 @@ from .models import Food, Vote
 from .forms import addFood
 import os
 from django.contrib import messages
+from datetime import date
+import calendar
 
 class Dashboard(generic.ListView):
     model = Food
@@ -14,15 +16,38 @@ class Dashboard(generic.ListView):
     # context_object_name = 'foods'
 
     def get(self, request, *args, **kwargs):
+
+        
+        my_date = date.today()
+        today = calendar.day_name[my_date.weekday()] 
+        today_listing = Food.objects.all().filter(foodAvailableDay = today)
+        today_listing_count = today_listing.count()
+
         vote = Vote.objects.all()
-        # print(vote.upVote)
-        foods = Food.objects.all().order_by('-foodAddDate')[:10]
-        count = Food.objects.all().count()
+
+
+        foods = Food.objects.all()
+        feature = foods.order_by('-foodAddDate')[:10]
+        count = foods.count()
+
+        # for food in foods:
+        #     id = food.foodId
+        #     print("Food ID")
+        #     print(id)
+
+        #     v = Vote.objects.get(foodId=id)
+        #     print("Vote")
+        #     print(v)
+            
+
+
+
 
         context = {
-            'foods':foods,
+            'foods':feature,
             'count':count,
-            'vote':vote
+            'vote':vote,
+            'today_listing_count': today_listing_count
         }
         return render(request, self.template_name, context)
 
@@ -65,6 +90,8 @@ class CreatePostView(generic.CreateView):
     form_class = addFood
     template_name = 'dashboard/post.html'
     success_url = reverse_lazy('dashboard:viewallfood')
+
+
 
     # def post(self, request, *args, **kwargs):
     #     messages.success(request, "Congraadulation, New Food Added into Menu")

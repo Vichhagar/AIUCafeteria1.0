@@ -1,4 +1,6 @@
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class Food(models.Model):
@@ -24,11 +26,24 @@ class Food(models.Model):
         return f"{self.foodName}"
 
 
+
+
+
+
 class Vote(models.Model):
     voteId = models.AutoField(primary_key=True)
-    foodId = models.ForeignKey(Food, on_delete=models.CASCADE, related_name ='food_related')
+    foodId = models.OneToOneField(Food, on_delete=models.CASCADE)
     upVote = models.IntegerField(default=0)
     downVote = models.IntegerField(default=0)
 
     def __str__(self):
-        return f"upVote {self.upVote}"
+        return f"{self.foodId}"
+
+    @receiver(post_save, sender=Food)
+    def setVoter(sender, instance, created, **kwargs):
+        if created:
+            
+            # vote = Vote.objects.create(food=kwargs['instance'])
+            print("YES?!")
+
+            
